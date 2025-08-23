@@ -73,18 +73,22 @@ public class _2913AChainofDebt extends QuestHandler {
 					return sendQuestStartDialog(env);
 			}
 		}
+
 		else if (targetId == 204173) {
-			if (qs != null && qs.getStatus() == QuestStatus.START && qs.getQuestVarById(0) == 2) {
-				if (env.getDialog() == QuestDialog.START_DIALOG)
+			if (qs != null) {
+				if (env.getDialog() == QuestDialog.START_DIALOG && qs.getStatus() == QuestStatus.START)
 					return sendQuestDialog(env, 2375);
-				else if (env.getDialogId() == 1009) {
-					qs.setQuestVarById(0, qs.getQuestVarById(0) + 1);
+				else if (env.getDialogId() == 1009 && qs.getStatus() != QuestStatus.COMPLETE
+					&& qs.getStatus() != QuestStatus.NONE) {
+					qs.setQuestVar(3);
 					qs.setStatus(QuestStatus.REWARD);
 					updateQuestStatus(env);
 					return sendQuestEndDialog(env);
+					
 				}
 				else
 					return sendQuestEndDialog(env);
+					
 			}
 		}
 		else if (qs != null && qs.getStatus() == QuestStatus.REWARD) {
